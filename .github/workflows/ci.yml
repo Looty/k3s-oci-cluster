@@ -38,8 +38,8 @@ jobs:
           sudo apt-get install pandoc/jammy
 
           curl -sSLo ./terraform-docs.tar.gz https://terraform-docs.io/dl/v0.16.0/terraform-docs-v0.16.0-$(uname)-amd64.tar.gz
-          mv terraform-docs /usr/local/bin
           tar -xzf terraform-docs.tar.gz
+          mv terraform-docs /usr/local/bin
           chmod +x terraform-docs
 
       - name: Generate docs
