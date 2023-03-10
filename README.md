@@ -77,7 +77,6 @@
   </style>
 </head>
 <body>
-<p><a href="https://github.com/Looty/k3s-oci-cluster/actions/workflows/ci.yml"><img src="https://github.com/Looty/k3s-oci-cluster/actions/workflows/ci.yml/badge.svg" alt="Wordpress CI" /></a> <a href="https://github.com/Looty/k3s-oci-cluster/issues"><img src="https://img.shields.io/github/issues/Looty/k3s-oci-cluster" alt="GitHub issues" /></a> <img src="https://img.shields.io/github/license/Looty/k3s-oci-cluster" alt="GitHub" /> <a href="https://github.com/Looty/k3s-oci-cluster/network"><img src="https://img.shields.io/github/forks/Looty/k3s-oci-cluster" alt="GitHub forks" /></a> <a href="https://github.com/Looty/k3s-oci-cluster/stargazers"><img src="https://img.shields.io/github/stars/Looty/k3s-oci-cluster" alt="GitHub stars" /></a></p>
 <p align="center">
   <img src="https://garutilorenzo.github.io/images/k3s-logo-large.png?" alt="k3s Logo"/>
 </p>

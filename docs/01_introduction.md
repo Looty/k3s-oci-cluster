@@ -1,9 +1,3 @@
-[![Wordpress CI](https://github.com/Looty/k3s-oci-cluster/actions/workflows/ci.yml/badge.svg)](https://github.com/Looty/k3s-oci-cluster/actions/workflows/ci.yml)
-[![GitHub issues](https://img.shields.io/github/issues/Looty/k3s-oci-cluster)](https://github.com/Looty/k3s-oci-cluster/issues)
-![GitHub](https://img.shields.io/github/license/Looty/k3s-oci-cluster)
-[![GitHub forks](https://img.shields.io/github/forks/Looty/k3s-oci-cluster)](https://github.com/Looty/k3s-oci-cluster/network)
-[![GitHub stars](https://img.shields.io/github/stars/Looty/k3s-oci-cluster)](https://github.com/Looty/k3s-oci-cluster/stargazers)
-
 <p align="center">
   <img src="https://garutilorenzo.github.io/images/k3s-logo-large.png?" alt="k3s Logo"/>
 </p>
