@@ -6,13 +6,23 @@ on:
       - master
   pull_request:
 
+env:
+  TERRAFORM_VERSION: 1.4.0
+  TERRAGRUNT_VERSION: 0.44.4
+
 jobs:
   validate:
     runs-on: ubuntu-latest
-    container:
-      image: alpine/terragrunt:1.4.0
     steps:
       - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          wget https://releases.hashicorp.com/terraform/${{ env.TERRAFORM_VERSION }}/terraform_${{ env.TERRAFORM_VERSION }}_linux_amd64.zip
+          wget https://github.com/gruntwork-io/terragrunt/releases/download/v${{ env.TERRAGRUNT_VERSION }}/terragrunt_linux_amd64
+
+          sudo unzip terraform_${{ env.TERRAFORM_VERSION }}_linux_amd64.zip -d /usr/local/bin
+          sudo mv terragrunt_linux_amd64 /usr/local/bin/terragrunt
 
       - name: Init terragrunt
         run: |
@@ -23,8 +33,6 @@ jobs:
 
   generate_docs:
     runs-on: ubuntu-latest
-    container:
-      image: alpine/terragrunt:1.4.0
     steps:
       - uses: actions/checkout@v3
 
