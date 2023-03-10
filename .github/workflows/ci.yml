@@ -51,7 +51,7 @@ jobs:
           git diff --exit-code README.md
 
           if [[ $? == 1 ]]; then
-            echo "::error file=README.md,line=1::README.md is not updated.."
+            echo "::error::Filename README.md README.md is not updated.." && exit 1
           else
             echo "README.md is updated! Skipping.."
           fi
