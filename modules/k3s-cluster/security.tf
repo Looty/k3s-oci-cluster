@@ -15,27 +15,21 @@ resource "oci_core_default_security_list" "default_security_list" {
     description = "Allow icmp from ${local.my_public_ip}"
   }
 
-  ingress_security_rules {
-    protocol = 6 # tcp
-    source   = local.my_public_ip
-
-    description = "Allow SSH from ${local.my_public_ip}"
-
-    tcp_options {
-      min = 22
-      max = 22
-    }
-  }
-
-  ingress_security_rules {
-    protocol = 6 # tcp
-    source   = local.my_public_ip
-
-    description = "Allow 6643 from ${local.my_public_ip}"
-
-    tcp_options {
-      min = 6443
-      max = 6443
+  dynamic "ingress_security_rules" {
+    iterator = port
+    for_each = (var.expose_argocd_nodeport ?
+      [for v in var.default_security_list_tcp_with_argo : { minport = v.minport, maxport = v.maxport, name = v.name }] :
+      [for v in var.default_security_list_tcp : { minport = v.minport, maxport = v.maxport, name = v.name }]
+    )
+    content {
+      protocol    = 6 # tcp
+      source      = local.my_public_ip
+      description = "Allow ${port.value.name} from ${local.my_public_ip}"
+      tcp_options {
+        // These values correspond to the destination port range.
+        min = port.value.minport
+        max = port.value.maxport
+      }
     }
   }
 

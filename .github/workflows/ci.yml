@@ -1,40 +1,57 @@
-name: Terraform CI
+name: CI
 
 on:
   push:
     branches:
       - master
-    tags:
-      - v*
   pull_request:
-    branches:
-      - master
+
+env:
+  TERRAGRUNT_VERSION: 0.44.4 # -> TERRAFORM_VERSION = 1.4.0
 
 jobs:
   validate:
-    name: Validate
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./example
     steps:
-      - name: Check out code
-        uses: actions/checkout@v1
+      - uses: actions/checkout@v3
 
-      - name: Run a Terraform init
-        uses: docker://hashicorp/terraform:light
-        with:
-          entrypoint: terraform
-          args: init
+      - name: Install dependencies
+        run: |
+          wget https://github.com/gruntwork-io/terragrunt/releases/download/v${{ env.TERRAGRUNT_VERSION }}/terragrunt_linux_amd64
+          sudo mv terragrunt_linux_amd64 /usr/local/bin/terragrunt
+          sudo chmod +x /usr/local/bin/terragrunt
 
-      - name: Run a Terraform validate
-        uses: docker://hashicorp/terraform:light
-        with:
-          entrypoint: terraform
-          args: validate
+      - name: Init terragrunt
+        run: |
+          terragrunt init
+          terragrunt fmt
+          terragrunt run-all validate
+          terragrunt validate-inputs --terragrunt-strict-validate
 
-      - name: Run a Terraform fmt
-        uses: docker://hashicorp/terraform:light
-        with:
-          entrypoint: terraform
-          args: fmt  --recursive -check=true --diff ../
+  generate_docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get install pandoc/jammy
+
+          curl -sSLo ./terraform-docs.tar.gz https://terraform-docs.io/dl/v0.16.0/terraform-docs-v0.16.0-$(uname)-amd64.tar.gz
+          tar -xzf terraform-docs.tar.gz
+          chmod +x terraform-docs
+          mv terraform-docs /usr/local/bin
+
+      - name: Generate docs
+        run: |
+          terraform-docs markdown table modules/k3s-cluster --output-file ../../docs/02_terraform_module.md
+          pandoc -s $(cat includes.txt) --quiet -f gfm -t html5 -o README.md
+
+          echo Checking if README.md is not updated..
+          git diff --exit-code README.md
+
+          if [[ $? == 1 ]]; then
+            echo "::error file=README.md,title=Error::README.md is not updated..."
+          else
+            echo "README.md is updated! Skipping.."
+          fi

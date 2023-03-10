@@ -30,6 +30,7 @@ data "cloudinit_config" "k3s_server_tpl" {
       argocd_image_updater_release      = var.argocd_image_updater_release,
       install_argocd_image_updater      = var.install_argocd_image_updater,
       install_argocd                    = var.install_argocd,
+      expose_argocd_nodeport            = var.expose_argocd_nodeport,
       argocd_release                    = var.argocd_release,
       install_longhorn                  = var.install_longhorn,
       longhorn_release                  = var.longhorn_release,
