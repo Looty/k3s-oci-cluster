@@ -118,7 +118,7 @@ provider "registry.terraform.io/loafoe/ssh" {
 
 provider "registry.terraform.io/oracle/oci" {
   version     = "4.110.0"
-  constraints = ">= 4.64.0"
+  constraints = "4.110.0"
   hashes = [
     "h1:PPZ8hp3rM1Ov+0/7tIm2j6eXtxfMcrfpUFRJ4cXp14U=",
     "zh:06fb242babcaa3747a3d962e3a945138ec86e2adcf464742c699d27fc37a9e1e",

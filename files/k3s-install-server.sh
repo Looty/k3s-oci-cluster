@@ -711,6 +711,17 @@ if [[ "$first_instance" == "$instance_id" ]]; then
   kubectl create namespace argocd
   kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/${argocd_release}/manifests/install.yaml
 
+  # Wait argocd to be ready
+  until kubectl get pods -n argocd | grep 'Running'; do
+    echo 'Waiting for argocd to be ready'
+    sleep 15
+  done
+
+  # Open ArgoCD via NodePort of node server
+  %{ if expose_argocd_nodeport }
+  kubectl patch service argocd-server -n argocd --patch '{"spec": {"type": "NodePort", "ports": [{ "nodePort": 31000, "port": 80, "protocol": "TCP" }]}}'
+  %{ endif }
+
   %{ if install_argocd_image_updater }
   kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/${argocd_image_updater_release}/manifests/install.yaml
   %{ endif }
