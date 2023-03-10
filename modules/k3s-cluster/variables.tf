@@ -339,7 +339,7 @@ variable "install_kubevela" {
 
 variable "crossplane_release" {
   type        = string
-  description = "Crossplane releases"
+  description = "Crossplane release"
   default     = "1.11.2"
 }
 
