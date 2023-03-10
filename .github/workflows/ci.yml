@@ -36,7 +36,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get install pandoc/jammy
-          
+
           curl -sSLo ./terraform-docs.tar.gz https://terraform-docs.io/dl/v0.16.0/terraform-docs-v0.16.0-$(uname)-amd64.tar.gz
           tar -xzf terraform-docs.tar.gz
           chmod +x terraform-docs
@@ -50,7 +50,7 @@ jobs:
           echo Checking if README.md is not updated..
           git diff --exit-code README.md
 
-          if [[ "$?" == 1 ]]; then
+          if [[ $? == 1 ]]; then
             echo "::error file=README.md,line=1::README.md is not updated.."
           else
             echo "README.md is updated! Skipping.."
