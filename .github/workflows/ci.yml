@@ -48,7 +48,7 @@ jobs:
           pandoc -s $(cat includes.txt) --quiet -f gfm -t html5 -o README.md
 
           echo Checking if README.md is not updated..
-          git diff --exit-code README.md
+          git diff --quiet --exit-code README.md
 
           echo "::debug::Set the Octocat variable"
 
