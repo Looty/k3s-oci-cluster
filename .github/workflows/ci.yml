@@ -50,6 +50,8 @@ jobs:
           echo Checking if README.md is not updated..
           git diff --exit-code README.md
 
+          echo "::debug::Set the Octocat variable"
+
           if [[ $? == 1 ]]; then
             echo "::error file=README.md,title=Error::README.md is not updated..."
           else
