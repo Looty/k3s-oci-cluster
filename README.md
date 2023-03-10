@@ -627,7 +627,7 @@
 </tr>
 <tr class="odd">
 <td><a name="input_crossplane_release"></a> <a href="#input_crossplane_release">crossplane_release</a></td>
-<td>Crossplane releases</td>
+<td>Crossplane release</td>
 <td><code>string</code></td>
 <td><code>"1.11.2"</code></td>
 <td style="text-align: center;">no</td>
@@ -1455,7 +1455,7 @@
 │ API Reference: https://docs.oracle.com/iaas/api/#/en/networkloadbalancer/20200501/Listener/DeleteListener
 </code></pre>
 <p>re-run <code>terraform destroy</code></p>
-<h3 id="kubectl-exec-failure">kubectsl exec failure</h3>
+<h3 id="kubectl-exec-failure">kubectl exec failure</h3>
 <p>The runc version in k3s containerd version 1.6.6 contains a regression that prevents anyone from executing a command and attaching to the container's TTY (exec -it) whenever someone runs systemctl daemon-reload. Alternatively, the user may run into this issue on SELinux-enforced systems. <a href="https://github.com/k3s-io/k3s/issues/6064">Ref</a>.</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true"></a>kubectl exec -it -n kube-system cilium-6lqp9 -- cilium status</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true"></a>Defaulted container &quot;cilium-agent&quot; out of: cilium-agent, mount-cgroup (init), apply-sysctl-overwrites (init), mount-bpf-fs (init), wait-for-node-init (init), clean-cilium-state (init)</span>
