@@ -48,11 +48,11 @@ jobs:
           pandoc -s $(cat includes.txt) --quiet -f gfm -t html5 -o README.md
 
           echo Checking if README.md is not updated..
-          git diff --quiet --exit-code README.md
 
+          check=$(git diff --quiet README.md)
           echo "::debug::Set the Octocat variable"
 
-          if [[ $? == 1 ]]; then
+          if [[ $check == 1 ]]; then
             echo "::error file=README.md,title=Error::README.md is not updated..."
           else
             echo "README.md is updated! Skipping.."
