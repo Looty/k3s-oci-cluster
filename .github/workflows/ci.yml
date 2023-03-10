@@ -7,7 +7,6 @@ on:
   pull_request:
 
 env:
-  # TERRAFORM_VERSION: 1.4.0
   TERRAGRUNT_VERSION: 0.44.4 # -> TERRAFORM_VERSION = 1.4.0
 
 jobs:
@@ -20,7 +19,7 @@ jobs:
         run: |
           wget https://github.com/gruntwork-io/terragrunt/releases/download/v${{ env.TERRAGRUNT_VERSION }}/terragrunt_linux_amd64
           sudo mv terragrunt_linux_amd64 /usr/local/bin/terragrunt
-          sudo chmod +x  /usr/local/bin/terragrunt
+          sudo chmod +x /usr/local/bin/terragrunt
 
       - name: Init terragrunt
         run: |
@@ -40,10 +39,19 @@ jobs:
 
           curl -sSLo ./terraform-docs.tar.gz https://terraform-docs.io/dl/v0.16.0/terraform-docs-v0.16.0-$(uname)-amd64.tar.gz
           tar -xzf terraform-docs.tar.gz
-          chmod +x terraform-docs
           mv terraform-docs /usr/local/bin
+          chmod +x terraform-docs
 
       - name: Generate docs
         run: |
           terraform-docs markdown table modules/k3s-cluster --output-file ../../docs/02_terraform_module.md
-          pandoc -s $(cat includes.txt) --quiet -f gfm -t html5 -o RESULT.md
+          pandoc -s $(cat includes.txt) --quiet -f gfm -t html5 -o README.md
+
+          echo Checking if README.md is not updated..
+          git diff --exit-code README.md
+
+          if [[ "$?" == 1 ]]; then
+            echo "::error file=README.md,line=1::README.md is not updated.."
+          else
+            echo "README.md is updated! Skipping.."
+          fi

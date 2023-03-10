@@ -627,7 +627,7 @@
 </tr>
 <tr class="odd">
 <td><a name="input_crossplane_release"></a> <a href="#input_crossplane_release">crossplane_release</a></td>
-<td>Crossplane release</td>
+<td>Crossplane releases</td>
 <td><code>string</code></td>
 <td><code>"1.11.2"</code></td>
 <td style="text-align: center;">no</td>
